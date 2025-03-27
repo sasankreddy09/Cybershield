@@ -1,0 +1,50 @@
+body {
+    background-color: #111020;
+    color: #3e84ec;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+}
+
+.form-control {
+    background-color: rgb(84, 215, 238) !important;
+    color:#3e84ec;
+    border: 1px solid #3e84ec;
+}
+
+.btn-scan {
+    background-color: #3e84ec !important;
+    color: black !important;
+    font-weight: bold;
+    border: none;
+}
+
+.btn-scan:hover {
+    opacity: 0.7;
+}
+
+.report-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: black;
+    border: 1px solid #516af7;
+    border-radius: 10px;
+    display: none;
+}
+
+.scanner-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 110px;
+}
+
+.scanner-card {
+    background: #1e293b;
+    padding: 50px;
+    border-radius: 12px;
+    width: 650px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#back{
+    background: #1e293b;
+}

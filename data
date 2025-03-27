@@ -1,0 +1,18 @@
+const data=[
+    {
+      "name": "CyberSecurity Enthusiasts",
+      "description": "A community for sharing the latest trends, threats, and best practices in cybersecurity.",
+      "date": "2025-02-07T10:30:00.000Z"
+    },
+    {
+      "name": "AI & Machine Learning Hub",
+      "description": "A group for AI and ML enthusiasts to discuss research papers, projects, and new advancements.",
+      "date": "2025-01-15T15:45:00.000Z"
+    },
+    {
+      "name": "Web Developers Network",
+      "description": "A place for front-end and back-end developers to collaborate on open-source projects.",
+      "date": "2025-02-01T08:00:00.000Z"
+    }
+  ]
+module.exports=data;  

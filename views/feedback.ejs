@@ -1,0 +1,42 @@
+<%- include('partials/navbar') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield - Feedback</title>
+    <link rel="stylesheet" href="/css/feedback.css">
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Feedback</h1>
+        <p>Help us improve CyberShield</p>
+
+        <div class="card">
+            <h2>How would you rate your experience?</h2>
+            <div class="stars" id="rating">
+                <span onclick="rate(1)">★</span>
+                <span onclick="rate(2)">★</span>
+                <span onclick="rate(3)">★</span>
+                <span onclick="rate(4)">★</span>
+                <span onclick="rate(5)">★</span>
+            </div>
+
+            <h3>Your Feedback</h3>
+            <textarea id="feedbackText" rows="5" placeholder="Write your feedback here..."></textarea>
+
+            <button class="button" onclick="submitFeedback()">Submit Feedback</button>
+        </div>
+
+        <div class="card">
+            <h2>Why Your Feedback Matters</h2>
+            <p>Your feedback helps us improve CyberShield and better protect our community from online threats. We carefully review all suggestions and use them to enhance our security tools and features.</p>
+        </div>
+    </div>
+    
+    <script src="/js/feedback.js"> </script>
+
+</body>
+<section><%- include('partials/chatbot') %></section>
+</html>

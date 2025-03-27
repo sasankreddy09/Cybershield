@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <% function capitalize(str) { return str.charAt(0).toUpperCase() + str.slice(1); } %>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <ul>
+            <li onclick="showSection('home')"><i class="fas fa-home"></i> Home</li>
+            <li onclick="showSection('feedback')"><i class="fas fa-comment-dots"></i> Feedback</li>
+            <li onclick="showSection('forum')"><i class="fas fa-users"></i> Community Forum</li>
+            <li onclick="showSection('settings')"><i class="fas fa-cogs"></i> Settings</li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header-section">
+            <div class="title">
+                <h1>Welcome to CyberShield Admin Dashboard</h1>
+            </div>
+            <div class="icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-comments"></i>
+                <div class="user-info">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Admin</span>
+                </div>
+            </div>
+
+        </div>
+        <div id="home" class="section active"> 
+            <div class="data-blocks">
+                <div class="data-block" id="total-users">Total Users: 1500</div>
+                <div class="data-block" id="active-sessions">Active Sessions: 230</div>
+                <div class="data-block" id="pending-feedbacks">Pending Feedbacks: 45</div>
+                <div class="data-block" id="total-posts">Total Posts: 500</div>
+            </div>
+        </div>
+        <div id="feedback" class="section"> 
+            <h1>feeback</h1> 
+            <% feedback.forEach((feedbacks)=>{%>
+                <% feedbacks.user=capitalize(feedbacks.user)%>
+                <div class="data-blocks">
+                    <div class="data ">
+                        <b><%= feedbacks.user %></b><br> <br>
+                        Rating:<%=feedbacks.rating%> <br><br>
+                        Feedback:<br> <br><b style="font-size: 20px;"><%=feedbacks.feedback%></b> <br><br>
+                        <%=new Date(feedbacks.date).toLocaleString()%><br>
+                    </div>
+                </div>
+            <%})%>
+        </div>
+        <div id="forum" class="section"> 
+            <h1>Community Forum</h1> 
+            <div class="data-blocks">
+                <div class="data-block">Total Discussions: 800</div>
+                <div class="data-block">Active Threads: 120</div>
+                <div class="data-block">Pending Approvals: 20</div>
+            </div>
+        </div>
+        <div id="settings" class="section"> 
+            <h1>Settings</h1> 
+            <div class="data-blocks">
+                <div class="data-block">System Logs</div>
+                <div class="data-block">Admin Roles</div>
+                <div class="data-block">Security Settings</div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>

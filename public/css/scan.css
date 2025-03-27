@@ -1,0 +1,103 @@
+body {
+    background-color: #111020;
+    color: #3e84ec;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+}
+
+.form-control {
+    background-color: rgb(84, 215, 238) !important;
+    color:#3e84ec;
+    border: 1px solid #3e84ec;
+}
+
+.btn-scan {
+    background-color: #3e84ec !important;
+    color: black !important;
+    font-weight: bold;
+    border: none;
+}
+
+.btn-scan:hover {
+    opacity: 0.7;
+}
+
+.report-box {
+    margin: auto;
+    margin-top: 20px;
+    padding: 15px;
+    background: black;
+    border: 1px solid #516af7;
+    border-radius: 10px;
+    width: 85%;
+    display: none;
+}
+
+.scanner-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 110px;
+}
+
+.scanner-card {
+    background: #1e293b;
+    padding: 50px;
+    border-radius: 12px;
+    width: 650px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#back{
+    background: #1e293b;
+}
+/* Loader animation */
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Styling for the result */
+.scan-result {
+    background: #1b1b1b;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Fade-in animation */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Risk level styling */
+.malicious {
+    color: red;
+    font-weight: bold;
+}
+
+.suspicious {
+    color: orange;
+    font-weight: bold;
+}
+
+.safe {
+    color: green;
+    font-weight: bold;
+}

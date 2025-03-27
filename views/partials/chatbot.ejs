@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chatbot</title>
+    
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .chatbody {
+    font-family: Arial, sans-serif;
+    background-color: #1a1717;
+    display: flex;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    z-index:20 !important;
+}
+
+.chat-container {
+    position: fixed;
+    bottom: 15%;
+    right: 5%;
+    width: 350px;
+    background: rgb(5, 5, 5);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* When hiding */
+.chat-container.animate {
+    transform: translateY(50%);
+    pointer-events: none; /* Prevents interaction while hidden */
+    opacity: 0;
+}
+
+.chat-box {
+    height: 350px;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-box div {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.bot-message {
+    background-color: rgb(55, 74, 243);
+    color: white;
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: rgb(47, 18, 211);
+    align-self: flex-end;
+}
+
+.typing {
+    font-style: italic;
+    color: gray;
+}
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    background: rgb(24, 20, 20);
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.chat-input button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: #0056b3;
+}
+textarea {
+    resize: none; /* Prevents manual resizing */
+}
+.chat-container .chat-head{
+    border-bottom: 2px solid black;
+    border-radius: 3px;
+    background-color: rgb(8, 24, 255);
+    height: 40px;
+}
+.chat-container .chat-head{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.chat-container .logo{
+    font-size: 25px;
+    width: 25%;
+    padding: 20px;
+}
+.chat-container .text{
+    font-size: 20px;
+    width: 50%;
+}
+.chat-container .btn1{
+    font-size: 30px;
+    width: 25%;
+    margin-right: auto;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+.btn2{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    font-size: 40px;
+    border: none;
+    margin: 2px 2px 2px 2px;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body class="chatbody">
+    <div class="chat-container animate">
+        <div class="chat-head">
+            <div class="logo"><i class="fa-solid fa-robot"></i></div>
+            <div class="text"><h3>Cyber robo!!</h3></div>
+            <button class="btn1"><i class="fa-regular fa-circle-xmark"></i></button>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <div class="bot-message">👋 Hi! I'm your chatbot. Ask me anything!</div>
+        </div>
+        <div class="chat-input">
+            <textarea id="user-input" rows="1" cols="30" placeholder="Type here" ></textarea>
+            <button class="btn" >Send</button>
+        </div>
+    </div>
+    <div class="btn2"><i class="fa-solid fa-message"></i></div>
+    <script type="module">
+        let btn3=document.querySelector("#user-input");
+        btn3.addEventListener("oninput",(event)=>{
+            resizeInput(event);
+        })
+        const btn2=document.querySelector(".btn2")
+        const chatHead=document.querySelector(".chat-container");
+        btn2.addEventListener("click",()=>{
+            chatHead.classList.remove("animate");
+        })
+        const btn1=document.querySelector(".btn1")
+        btn1.addEventListener("click",()=>{
+            chatHead.classList.add("animate")
+        })
+        import { GoogleGenerativeAI } from "https://cdn.jsdelivr.net/npm/@google/generative-ai/+esm";
+        const genAI = new GoogleGenerativeAI("AIzaSyDbJPtfOK67afBCvZ4LXg3pfs6S0dJjZ7k");
+
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        function resizeInput(textarea) {
+            textarea.style.height = "auto";
+            textarea.style.height = textarea.scrollHeight + "px";
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault(); // Prevent new line
+                if (document.getElementById("user-input").value.trim() !== "") {
+                    sendMessage();
+                }
+            }
+        });
+
+        const btn = document.querySelector(".btn");
+        btn.addEventListener("click", sendMessage);
+
+        async function sendMessage() {
+            let userInput = document.getElementById("user-input").value.trim()
+            document.getElementById("user-input").value=''
+            if (userInput === "") return;
+            let chatBox = document.getElementById("chat-box");
+            let userMessage = document.createElement("div");
+            userMessage.classList.add("user-message");
+            userMessage.textContent = userInput;
+            chatBox.appendChild(userMessage);
+            let typingIndicator = document.createElement("div");
+            typingIndicator.classList.add("bot-message", "typing");
+            typingIndicator.textContent = "Typing...";
+            chatBox.appendChild(typingIndicator);
+
+            try {
+                const prompt = `
+                        You are a cybersecurity assistant named CyberRobo. 
+                        Your job is to:
+                        1. Respond to greetings.
+                        2. Provide accurate cybersecurity information within 50 words.
+                        3. Say "I don't have information" for non-cybersecurity topics.
+                        4. Give details about CyberShield when asked.
+                        5. Cybershield is a project name which is developed by RGUKT RKV students which is created for securing the data from hackers
+                        6. Give details about RGUKT when asked.
+                        Now, answer the user's question: ${userInput}
+                    `;
+                const result = await model.generateContent({
+                    contents: [{ role: "user", parts: [{ text: userInput}] }]
+                });
+                const botResponse = result.response.candidates[0]?.content?.parts[0]?.text || "I couldn't understand that. Try again!";
+                typingIndicator.remove();
+                let botMessage = document.createElement("div");
+                botMessage.classList.add("bot-message");
+                for(let i=0;i<botResponse.length;i++){
+                    setTimeout(()=>{botMessage.textContent+=botResponse.charAt(i);},i*30);
+                }
+                chatBox.appendChild(botMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            } catch (error) {
+                console.error("Error fetching AI response:", error);
+                typingIndicator.remove();
+                let errorMessage = document.createElement("div");
+                errorMessage.classList.add("bot-message");
+                errorMessage.textContent = "Error: Unable to get a response. Please check your internet connection.";
+                chatBox.appendChild(errorMessage);
+            }
+        }
+    </script>
+</body>
+</html>
+
